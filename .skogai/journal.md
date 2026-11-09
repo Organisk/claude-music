@@ -69,3 +69,25 @@ Restart Claude Code and paste in your intro when it's ready. I'll check it again
 - Write `/skogai/claude/projects/-home-skogix-skogai-pop/memory/music-tooling-setup.md`
 - Bash: `echo '- [Music tooling setup](music-tooling-setup.md) — venv on py3.12, local plugin install, skogai config paths' >> /s…`
 
+## 2026-11-09 03:00 · turn 7b9bfc51
+
+**User**
+
+> hmm
+
+**Assistant**
+
+That `/mcp` failure was expected. The music tools themselves are working: there are two server entries with almost the same name, and only the one you reconnected is broken.
+
+- **`plugin:bitwize-music:bitwize-music-mcp`** is the installed plugin, and it's running. I just called its health check: all 16 venv packages are fine, there are no album name collisions, and all 53 `/bitwize-music:*` skills have loaded.
+- **`bitwize-music-mcp`** (no `plugin:` prefix) is what `/mcp` tried to reconnect. That's this repo's own `.mcp.json` being read as a plain project server. Claude Code can't fill in its plugin path, so it fails with ENOENT. You can disable it in `/mcp` to stop the warning; nothing depends on it.
+
+The health check also gives a "no plugin cache found" warning. That's expected because the plugin is installed straight from this checkout instead of the online marketplace, and every skill loaded anyway, so you can ignore it.
+
+Everything's ready, so send over the intro whenever you have it.
+
+**Actions**
+
+- ToolSearch: select:mcp__plugin_bitwize-music_bitwize-music-mcp__health_check
+- mcp__plugin_bitwize-music_bitwize-music-mcp__health_check
+
